@@ -25,9 +25,16 @@ const DESCRIPTIONS = [
   'Когда лето?',
 ];
 
+const MIN_LIKE_NUMBER = 15;
+const MAX_LIKE_NUMBER = 200;
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 6;
+const MIN_COMMENT_COUNT = 1;
+const MAX_COMMENT_COUNT = 3;
 const USERS_POSTS_COUNT = 25;
+const MAX_LENGTH = 120;
 
-function getRandomNumber(min, max) {
+const getRandomNumber = (min, max) => {
   const isBothNumbers = typeof min === 'number' && typeof max === 'number';
   if (!isBothNumbers) {
     return 'Введенные значения должны быть числами';
@@ -38,46 +45,27 @@ function getRandomNumber(min, max) {
   const newMin = Math.ceil(min);
   const newMax = Math.floor(max);
   return Math.floor(Math.random() * (newMax - newMin + 1)) + newMin;
-}
-
-getRandomNumber(1,9);
-
-function checkStringLength(string, maxLength) {
-  if (string.length <= maxLength) {
-    return true;
-  }
-  return false;}
-checkStringLength('false',9);
-
-const createUserComment = () => {
-  const randomIdComment = getRandomNumber(1, 200);
-  const randomAvatar = getRandomNumber(1, 6);
-  const randomMessage = getRandomNumber(0, MESSAGES.length - 1);
-  const randomName = getRandomNumber(0, NAMES.length - 1);
-  return {
-    id: randomIdComment,
-    avatar: `img/avatar-${randomAvatar}.svg`,
-    message: MESSAGES[randomMessage],
-    name: NAMES[randomName],
-  };
 };
 
-createUserComment();
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const createUserPost = () => {
-  const randomId = getRandomNumber(1, 25);
-  const randomIndexFoto = getRandomNumber(1, 25);
-  const randomDescription = getRandomNumber(0, DESCRIPTIONS.length - 1);
-  const randomLike = getRandomNumber(15, 200);
-  return {
-    id: randomId,
-    url: `photos/${randomIndexFoto}.jpg`,
-    description: DESCRIPTIONS[randomDescription],
-    likes: randomLike,
-    comments: createUserComment(),
-  };
-};
+const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
-new Array(USERS_POSTS_COUNT).fill(null).map(() => createUserPost());
+checkStringLength('false', MAX_LENGTH);
 
+const createUserComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
+});
 
+const createUserPost = (index) => ({
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomNumber(MIN_LIKE_NUMBER, MAX_LIKE_NUMBER),
+  comments: new Array(getRandomNumber(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT)).fill(null).map((item, i) => createUserComment(i + 1)),
+});
+
+new Array(USERS_POSTS_COUNT).fill(null).map((item, index) => createUserPost(index + 1));
