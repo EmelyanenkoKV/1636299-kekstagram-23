@@ -50,4 +50,6 @@ const createUserPost = (index) => ({
   comments: new Array(getRandomNumber(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT)).fill(null).map((item, i) => createUserComment(i + 1)),
 });
 
-new Array(USERS_POSTS_COUNT).fill(null).map((item, index) => createUserPost(index + 1));
+const userPhotos = new Array(USERS_POSTS_COUNT).fill(null).map((item, index) => createUserPost(index + 1));
+
+export {userPhotos};
