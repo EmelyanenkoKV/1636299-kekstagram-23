@@ -10,7 +10,7 @@ similarPictures.forEach((url, comments, likes) => {
   pictureElement.querySelector('.picture__img').src = url;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
   pictureElement.querySelector('.picture__likes').textContent = likes;
-  pictureFragment.appendChild(pictureElement.querySelector);
+  similarPicturesFragment.appendChild(pictureElement.querySelector);
 });
 
 pictures.appendChild(similarPicturesFragment);
