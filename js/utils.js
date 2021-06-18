@@ -1,4 +1,4 @@
-const MAX_LENGTH = 120;
+const MAX_LENGTH = 300;
 const getRandomNumber = (min, max) => {
   const isBothNumbers = typeof min === 'number' && typeof max === 'number';
   if (!isBothNumbers) {
