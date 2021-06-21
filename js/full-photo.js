@@ -2,7 +2,10 @@ import {userPhotos} from './data.js';
 import {pictures} from './preview.js';
 import {isEscEvent} from './utils.js';
 
-const picture = pictures.querySelectorAll('.picture');
+const PHOTO_WIDTH = 35;
+const PHOTO_HEIGHT = 35;
+
+const photos = pictures.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigLikesCount = bigPicture.querySelector('.likes-count');
 const bigCommentsCount = bigPicture.querySelector('.comments-count');
@@ -13,12 +16,23 @@ const commentsList = bigPicture.querySelector('.social__comments');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentFragment = document.createDocumentFragment();
-const PHOTO_WIDTH = 35;
-const PHOTO_HEIGHT = 35;
+
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  socialCommentCount.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
+  document.body.classList.remove('modal-open');
+};
+
+const onPopupEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    closeBigPicture();
+  }
+};
 
 // Обработка события нажатия на миниатюру и заполнение данными;
-const addPhotoClickHandlers = (preview, {url, likes, comments, description}) => {
-  preview.addEventListener('click', () => {
+const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
+  const openBigPicture = () => {
     bigPicture.classList.remove('hidden');
     socialCommentCount.classList.add('hidden');
     commentsLoader.classList.add('hidden');
@@ -46,29 +60,18 @@ const addPhotoClickHandlers = (preview, {url, likes, comments, description}) => 
       comment.appendChild(commentText);
       commentFragment.appendChild(comment);
       commentsList.innerHTML = '';
+
+      bigPictureCancel.addEventListener('click', closeBigPicture);
+      document.addEventListener('keydown', onPopupEscKeydown);
     });
     commentsList.appendChild(commentFragment);
-  });
+  };
+  bigPictureCancel.removeEventListener('click', closeBigPicture);
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  preview.addEventListener('click', openBigPicture);
 };
 
-picture.forEach((photo, i) => {
-  addPhotoClickHandlers(photo, userPhotos[i]);
+photos.forEach((photo, i) => {
+  addPhotoClickHandler(photo, userPhotos[i]);
 });
 
-// Обработчик события при нажатии клавиши Esc;
-document.addEventListener('keydown', (evt) => {
-  if (isEscEvent(evt)) {
-    bigPicture.classList.add('hidden');
-    socialCommentCount.classList.remove('hidden');
-    commentsLoader.classList.remove('hidden');
-    document.body.classList.remove('modal-open');
-  }
-});
-
-// Закрытие окна при клике на кнопку "Close";
-bigPictureCancel.addEventListener('click', () => {
-  bigPicture.classList.add('hidden');
-  socialCommentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
-  document.body.classList.remove('modal-open');
-});
