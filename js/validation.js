@@ -35,6 +35,7 @@ const validationFormHashtag = (evt) => {
   }
 };
 textHashtags.addEventListener('input', validationFormHashtag);
+
 const validationFormDescription = (evt) => {
   const textDescriptionLength = checkStringLength(textDescription.value, MAX_COMMENTS_SYMBOL);
   if (!textDescriptionLength) {
