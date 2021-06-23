@@ -1,38 +1,24 @@
 import {userPhotos} from './data.js';
 import {pictures} from './preview.js';
-import {isEscEvent} from './utils.js';
+import {onCloseModalClick,onPopupEscKeydown} from './close.js';
 
 const PHOTO_WIDTH = 35;
 const PHOTO_HEIGHT = 35;
-
-const photos = pictures.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
+const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+const photos = pictures.querySelectorAll('.picture');
 const bigLikesCount = bigPicture.querySelector('.likes-count');
 const bigCommentsCount = bigPicture.querySelector('.comments-count');
 const bigImage = bigPicture.querySelector('img');
 const bigPhotoDescription = bigPicture.querySelector('.social__caption');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 const commentsList = bigPicture.querySelector('.social__comments');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentFragment = document.createDocumentFragment();
 
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  socialCommentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
-  document.body.classList.remove('modal-open');
-};
-
-const onPopupEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
-    closeBigPicture();
-  }
-};
-
 // Обработка события нажатия на миниатюру и заполнение данными;
 const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
-  const openBigPicture = () => {
+  const onPreviewClick = () => {
     bigPicture.classList.remove('hidden');
     socialCommentCount.classList.add('hidden');
     commentsLoader.classList.add('hidden');
@@ -61,14 +47,14 @@ const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
       commentFragment.appendChild(comment);
       commentsList.innerHTML = '';
 
-      bigPictureCancel.addEventListener('click', closeBigPicture);
+      bigPictureCancel.addEventListener('click', onCloseModalClick);
       document.addEventListener('keydown', onPopupEscKeydown);
     });
     commentsList.appendChild(commentFragment);
   };
-  bigPictureCancel.removeEventListener('click', closeBigPicture);
+  bigPictureCancel.removeEventListener('click', onCloseModalClick);
   document.removeEventListener('keydown', onPopupEscKeydown);
-  preview.addEventListener('click', openBigPicture);
+  preview.addEventListener('click', onPreviewClick);
 };
 
 photos.forEach((photo, i) => {
