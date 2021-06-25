@@ -14,7 +14,7 @@ const textDescription = document.querySelector('.text__description');
 
 const validationFormHashtag = (evt) => {
   if (textHashtags.value !== '') {
-    const hashtags = textHashtags.value.toLowerCase().trim().split(' ');
+    const hashtags = textHashtags.value.toLowerCase().trim().split(' ').filter((hashtag) => hashtag);
     const hashtagsSet = new Set(hashtags);
     hashtags.forEach((hashtag) => {
       if (!REG_HASHTAG.test(hashtag)) {
