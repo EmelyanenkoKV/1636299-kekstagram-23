@@ -11,15 +11,17 @@ const ERROR_NO_REPEAT = 'Хэштеги не должны повторяться
 const MAX_COMMENTS_SYMBOL = 140;
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
+
 const validationFormHashtag = (evt) => {
   if (textHashtags.value !== '') {
     const hashtags = textHashtags.value.toLowerCase().trim().split(' ');
-    hashtags.forEach((hashtag, i) => {
+    const hashtagsSet = new Set(hashtags);
+    hashtags.forEach((hashtag) => {
       if (!REG_HASHTAG.test(hashtag)) {
         textHashtags.setCustomValidity(TEXT_VALIDATE);
         textHashtags.style.outlineColor = INVALID_INPUT_STYLE;
         evt.preventDefault();
-      } else if (hashtags.indexOf(hashtag) !== i) {
+      } else if (hashtags.length !== hashtagsSet.size) {
         textHashtags.setCustomValidity(ERROR_NO_REPEAT);
         textHashtags.style.outlineColor = INVALID_INPUT_STYLE;
         evt.preventDefault();
@@ -32,6 +34,9 @@ const validationFormHashtag = (evt) => {
     if (hashtags.length > MAX_HASHTAGS) {
       textHashtags.setCustomValidity(`Количество хэштегов должно быть не более ${MAX_HASHTAGS}`);
     }
+  } else {
+    textHashtags.setCustomValidity('');
+    textHashtags.style.outlineColor = VALID_INPUT_STYLE;
   }
 };
 textHashtags.addEventListener('input', validationFormHashtag);
