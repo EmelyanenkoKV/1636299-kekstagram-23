@@ -32,7 +32,7 @@ const MAX_LIKE_NUMBER = 200;
 const MIN_AVATAR_NUMBER = 1;
 const MAX_AVATAR_NUMBER = 6;
 const MIN_COMMENT_COUNT = 1;
-const MAX_COMMENT_COUNT = 3;
+const MAX_COMMENT_COUNT = 20;
 const USERS_POSTS_COUNT = 25;
 
 const createUserComment = (index) => ({
