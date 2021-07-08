@@ -5,3 +5,5 @@ import './full-photo.js';
 import './upload.js';
 import './close.js';
 import './validation.js ';
+import './filter.js ';
+import './scale-photo.js ';
