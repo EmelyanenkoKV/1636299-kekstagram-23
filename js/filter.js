@@ -11,51 +11,53 @@ const marvinEffectRadio = document.querySelector('#effect-marvin');
 const phobosEffectRadio = document.querySelector('#effect-phobos');
 const heatEffectRadio = document.querySelector('#effect-heat');
 
+sliderWrapper.classList.add('visually-hidden');
+
 const effects = {
   chrome: {
-    name: 'grayscale',
-    htmlClass: 'effects__preview--chrome',
-    unit: '',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    start: 1,
+    NAME: 'grayscale',
+    HTML_CLASS: 'effects__preview--chrome',
+    UNIT: '',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
   },
   sepia: {
-    name: 'sepia',
-    htmlClass: 'effects__preview--sepia',
-    unit: '',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    start: 1,
+    NAME: 'sepia',
+    HTML_CLASS: 'effects__preview--sepia',
+    UNIT: '',
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
   },
   marvin: {
-    name: 'invert',
-    htmlClass: 'effects__preview--marvin',
-    unit: '%',
-    min: 0,
-    max: 100,
-    step: 1,
-    start: 100,
+    NAME: 'invert',
+    HTML_CLASS: 'effects__preview--marvin',
+    UNIT: '%',
+    MIN: 0,
+    MAX: 100,
+    STEP: 1,
+    START: 100,
   },
   phobos: {
-    name: 'blur',
-    htmlClass: 'effects__preview--phobos',
-    unit: 'px',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    start: 3,
+    NAME: 'blur',
+    HTML_CLASS: 'effects__preview--phobos',
+    UNIT: 'px',
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
   },
   heat: {
-    name: 'brightness',
-    htmlClass: 'effects__preview--heat',
-    unit: '',
-    min: 1,
-    max: 3,
-    step: 1,
-    start: 3,
+    NAME: 'brightness',
+    HTML_CLASS: 'effects__preview--heat',
+    UNIT: '',
+    MIN: 1,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
   },
 };
 
@@ -68,12 +70,7 @@ noUiSlider.create(effectLevelSlider, {
   step: 0.1,
   connect: 'lower',
   format: {
-    to: (value) => {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
+    to: (value) => Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1),
     from: (value) => parseFloat(value),
   },
 });
@@ -99,31 +96,32 @@ const sliderOptionsHandler = (minValue, maxValue, startValue, stepValue) => {
   });
 };
 
-const effectsHandler = () => {
+const onEffects = () => {
   if (noEffectRadio.checked) {
     imagePreview.classList = 'img-upload__preview';
     sliderWrapper.classList.add('visually-hidden');
     imagePreview.style.filter = 'none';
   } else if (chromeEffectRadio.checked) {
-    showEffect(effects.chrome.htmlClass, effects.chrome.name, effects.chrome.unit);
-    sliderOptionsHandler(effects.chrome.min, effects.chrome.max, effects.chrome.start, effects.chrome.step);
+    showEffect(effects.chrome.HTML_CLASS, effects.chrome.NAME, effects.chrome.UNIT);
+    sliderOptionsHandler(effects.chrome.MIN, effects.chrome.MAX, effects.chrome.START, effects.chrome.STEP);
   } else if (sepiaEffectRadio.checked) {
-    showEffect(effects.sepia.htmlClass, effects.sepia.name, effects.sepia.unit);
-    sliderOptionsHandler(effects.sepia.min, effects.sepia.max, effects.sepia.start, effects.sepia.step);
+    showEffect(effects.sepia.HTML_CLASS, effects.sepia.NAME, effects.sepia.UNIT);
+    sliderOptionsHandler(effects.sepia.MIN, effects.sepia.MAX, effects.sepia.START, effects.sepia.STEP);
   } else if (marvinEffectRadio.checked) {
-    showEffect(effects.marvin.htmlClass, effects.marvin.name, effects.marvin.unit);
-    sliderOptionsHandler(effects.marvin.min, effects.marvin.max, effects.marvin.start, effects.marvin.step);
+    showEffect(effects.marvin.HTML_CLASS, effects.marvin.NAME, effects.marvin.UNIT);
+    sliderOptionsHandler(effects.marvin.MIN, effects.marvin.MAX, effects.marvin.START, effects.marvin.STEP);
   } else if (phobosEffectRadio.checked) {
-    showEffect(effects.phobos.htmlClass, effects.phobos.name, effects.phobos.unit);
-    sliderOptionsHandler(effects.phobos.min, effects.phobos.max, effects.phobos.start, effects.phobos.step);
+    showEffect(effects.phobos.HTML_CLASS, effects.phobos.NAME, effects.phobos.UNIT);
+    sliderOptionsHandler(effects.phobos.MIN, effects.phobos.MAX, effects.phobos.START, effects.phobos.STEP);
   } else if (heatEffectRadio.checked) {
-    showEffect(effects.heat.htmlClass, effects.heat.name, effects.heat.unit);
-    sliderOptionsHandler(effects.heat.min, effects.heat.max, effects.heat.start, effects.heat.step);
+    showEffect(effects.heat.HTML_CLASS, effects.heat.NAME, effects.heat.UNIT);
+    sliderOptionsHandler(effects.heat.MIN, effects.heat.MAX, effects.heat.START, effects.heat.STEP);
   }
 };
-noEffectRadio.addEventListener('click', effectsHandler);
-chromeEffectRadio.addEventListener('click', effectsHandler);
-sepiaEffectRadio.addEventListener('click', effectsHandler);
-marvinEffectRadio.addEventListener('click', effectsHandler);
-phobosEffectRadio.addEventListener('click', effectsHandler);
-heatEffectRadio.addEventListener('click', effectsHandler);
+noEffectRadio.addEventListener('click', onEffects);
+chromeEffectRadio.addEventListener('click', onEffects);
+sepiaEffectRadio.addEventListener('click', onEffects);
+marvinEffectRadio.addEventListener('click', onEffects);
+phobosEffectRadio.addEventListener('click', onEffects);
+heatEffectRadio.addEventListener('click', onEffects);
+

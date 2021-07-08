@@ -7,29 +7,30 @@ const buttonPlus = document.querySelector('.scale__control--bigger');
 const imagePreview = document.querySelector('.img-upload__preview');
 const scaleValue = document.querySelector('.scale__control--value');
 
-let currentScale = SCALE_MAX_VALUE ;
+let currentScale = SCALE_MAX_VALUE;
 scaleValue.value = `${currentScale}%`;
 
 const setImageScale = (newScale) => {
   scaleValue.value = `${newScale}%`;
-  imagePreview.style = `transform: scale(${newScale / 100})`;
+  imagePreview.style = `transform: scale(${newScale / SCALE_MAX_VALUE})`;
   currentScale = newScale;
 };
 
-const buttonMinusClickHandler = () => {
+const onButtonMinusClick = () => {
   if (currentScale > SCALE_MIN_VALUE) {
     currentScale -= SCALE_STEP;
     setImageScale(currentScale);
   }
 };
 
-const buttonPlusClickHandler = () => {
+const onButtonPlusClick = () => {
   if (currentScale < SCALE_MAX_VALUE) {
     currentScale += SCALE_STEP;
     setImageScale(currentScale);
   }
 };
 
-buttonMinus.addEventListener('click', buttonMinusClickHandler);
-buttonPlus.addEventListener('click', buttonPlusClickHandler);
+buttonMinus.addEventListener('click', onButtonMinusClick);
+buttonPlus.addEventListener('click', onButtonPlusClick);
 
+export {setImageScale};
