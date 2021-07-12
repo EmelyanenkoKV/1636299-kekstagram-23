@@ -43,5 +43,23 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-export {onCloseModalClick, onPopupEscKeydown};
+const closeMessageModal = (messageTemplate, messageCloseButton, messageInner) => {
+  messageCloseButton.addEventListener('click', () => {
+    messageTemplate.remove();
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (isEscEvent(evt)) {
+      messageTemplate.remove();
+    }
+  });
+  messageTemplate.addEventListener('click', (evt) => {
+    const isClickInside = messageInner.contains(evt.target);
+
+    if (!isClickInside) {
+      messageTemplate.remove();
+    }
+  });
+};
+
+export {onCloseModalClick, onPopupEscKeydown, closeMessageModal};
 

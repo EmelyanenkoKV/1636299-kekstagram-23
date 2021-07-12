@@ -1,4 +1,3 @@
-import {userPhotos} from './data.js';
 import {pictures} from './preview.js';
 import {onCloseModalClick, onPopupEscKeydown} from './close.js';
 
@@ -8,7 +7,7 @@ const COMMENTS_LOAD_STEP = 5;
 const bigPicture = document.querySelector('.big-picture');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-const photos = pictures.querySelectorAll('.picture');
+/*const photos = pictures.querySelectorAll('.picture');*/
 const bigLikesCount = bigPicture.querySelector('.likes-count');
 const bigCommentsCount = bigPicture.querySelector('.comments-count');
 const bigImage = bigPicture.querySelector('img');
@@ -19,7 +18,8 @@ const commentFragment = document.createDocumentFragment();
 
 // Обработка события нажатия на миниатюру и заполнение данными;
 const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
-  const onPreviewClick = () => {
+  const onPreviewClick = (evt) => {
+    evt.preventDefault();
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
     bigImage.src = url;
@@ -92,7 +92,13 @@ const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
   preview.addEventListener('click', onPreviewClick);
 };
 
-photos.forEach((photo, i) => {
-  addPhotoClickHandler(photo, userPhotos[i]);
-});
 
+const addBigPhotoComments = (userPhotoList) => {
+  const photos = pictures.querySelectorAll('.picture');
+
+  photos.forEach((photo, i) => {
+    addPhotoClickHandler(photo, userPhotoList[i]);
+  });
+};
+
+export {addBigPhotoComments};

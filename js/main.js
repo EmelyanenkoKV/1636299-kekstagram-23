@@ -1,4 +1,4 @@
-import './data.js';
+/*import './data.js';*/
 import './preview.js';
 import './utils.js';
 import './full-photo.js';
@@ -7,3 +7,5 @@ import './close.js';
 import './validation.js ';
 import './filter.js ';
 import './scale-photo.js ';
+import './api.js ';
+import './modal-messages.js ';
