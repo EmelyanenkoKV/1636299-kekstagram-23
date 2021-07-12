@@ -3,6 +3,7 @@ import {addBigPhotoComments} from './full-photo.js';
 import {onFormSuccessSend} from './modal-messages.js';
 import {onFormErrorSend} from './modal-messages.js';
 import {showAlert} from './utils.js';
+import {renderPhotoFilter} from './filter.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 
@@ -12,11 +13,11 @@ const getUserPhotos = () => {
     .then((userPhotos) => {
       renderSimilarPhoto(userPhotos);
       addBigPhotoComments(userPhotos);
+      renderPhotoFilter(userPhotos);
     })
     .catch(() => showAlert ('Ошибка при загрузке фото. Попробуйте ещё раз'));
 };
 getUserPhotos();
-
 
 const setUserFormSubmit = (onSuccess, onError) => {
   imgUploadForm.addEventListener('submit', (evt) => {
