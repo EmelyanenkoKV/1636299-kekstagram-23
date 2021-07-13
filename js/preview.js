@@ -1,6 +1,7 @@
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('a');
 const similarPicturesFragment = document.createDocumentFragment();
+const imgFilters = document.querySelector('.img-filters');
 
 const renderSimilarPhoto = (userPhotos) => {
   userPhotos.forEach(({url, likes, comments}) => {
@@ -11,6 +12,7 @@ const renderSimilarPhoto = (userPhotos) => {
     similarPicturesFragment.appendChild(pictureElement);
   });
   pictures.appendChild(similarPicturesFragment);
+  imgFilters.classList.remove('img-filters--inactive');
 };
 
 export {renderSimilarPhoto, pictures};
