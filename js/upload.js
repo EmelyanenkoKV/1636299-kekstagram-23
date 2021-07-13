@@ -20,9 +20,9 @@ uploadFile.addEventListener('change', uploadPhotoUser);
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  const  isMatch = FILE_TYPES.some((it) => fileName.endsWith(it));
 
-  if (matches) {
+  if ( isMatch) {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
