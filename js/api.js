@@ -1,5 +1,5 @@
-import {renderSimilarPhoto} from './preview.js';
 import {addBigPhotoComments} from './full-photo.js';
+import {renderSimilarPhoto} from './preview.js';
 import {onFormSuccessSend} from './modal-messages.js';
 import {onFormErrorSend} from './modal-messages.js';
 import {showAlert} from './utils.js';
