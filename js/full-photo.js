@@ -7,7 +7,6 @@ const COMMENTS_LOAD_STEP = 5;
 const bigPicture = document.querySelector('.big-picture');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-/*const photos = pictures.querySelectorAll('.picture');*/
 const bigLikesCount = bigPicture.querySelector('.likes-count');
 const bigCommentsCount = bigPicture.querySelector('.comments-count');
 const bigImage = bigPicture.querySelector('img');
