@@ -17,7 +17,7 @@ const sliderWrapper = document.querySelector('.img-upload__effect-level');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const closeUpload = document.querySelector('#upload-cancel');
 
-const removePicturesHendlers = () => {
+const removeBigPicture = () => {
   closeUpload.removeEventListener('click', onCloseModalClick);
   bigPictureCancel.removeEventListener('click', onCloseModalClick);
   document.removeEventListener('keydown', onPopupEscKeydown);
@@ -40,7 +40,7 @@ function onCloseModalClick() {
   imagePreview.style.filter = 'none';
   noEffectRadio.checked = 'true';
 
-  removePicturesHendlers();
+  removeBigPicture();
 }
 
 function onPopupEscKeydown(evt) {
