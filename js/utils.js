@@ -2,18 +2,6 @@ const MAX_LENGTH = 300;
 const ALERT_SHOW_TIME = 5000;
 const RERENDER_DELAY = 500;
 
-const getRandomNumber = (min, max) => {
-  const isBothNumbers = typeof min === 'number' && typeof max === 'number';
-  if (!isBothNumbers) {
-    return 'Введенные значения должны быть числами';
-  }
-  if ((min < 0 || max < 0) || min >= max) {
-    return 'Некорректный диапазон';
-  }
-  const newMin = Math.ceil(min);
-  const newMax = Math.floor(max);
-  return Math.floor(Math.random() * (newMax - newMin + 1)) + newMin;
-};
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
 checkStringLength('false', MAX_LENGTH);
@@ -68,4 +56,4 @@ const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
     // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 };
-export {getRandomNumber,checkStringLength, isEscEvent, showAlert, shuffle, debounce};
+export {checkStringLength, isEscEvent, showAlert, shuffle, debounce};
