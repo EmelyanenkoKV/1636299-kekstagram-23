@@ -3,7 +3,6 @@ const ALERT_SHOW_TIME = 5000;
 const RERENDER_DELAY = 500;
 
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
-
 checkStringLength('false', MAX_LENGTH);
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
