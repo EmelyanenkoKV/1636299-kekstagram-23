@@ -8,14 +8,14 @@ const uploadFile = document.querySelector('#upload-file');
 const closeUpload = document.querySelector('#upload-cancel');
 const photoUpload = document.querySelector('.img-upload__overlay');
 
-const uploadPhotoUser = () => {
+const onUploadButtonClick = () => {
   photoUpload.classList.remove('hidden');
   document.body.classList.add('modal-open');
   closeUpload.addEventListener('click', onCloseModalClick);
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-uploadFile.addEventListener('change', uploadPhotoUser);
+uploadFile.addEventListener('change', onUploadButtonClick);
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];

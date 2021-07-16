@@ -12,7 +12,7 @@ const MAX_COMMENTS_SYMBOL = 140;
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 
-const validationFormHashtag = (evt) => {
+const onFormHashtagCheck = (evt) => {
   if (textHashtags.value !== '') {
     const hashtags = textHashtags.value.toLowerCase().trim().split(' ').filter((hashtag) => hashtag);
     const hashtagsSet = new Set(hashtags);
@@ -39,9 +39,9 @@ const validationFormHashtag = (evt) => {
     textHashtags.style.outlineColor = VALID_INPUT_STYLE;
   }
 };
-textHashtags.addEventListener('input', validationFormHashtag);
+textHashtags.addEventListener('input', onFormHashtagCheck);
 
-const validationFormDescription = (evt) => {
+const onFormDescriptionCheck = (evt) => {
   const textDescriptionLength = checkStringLength(textDescription.value, MAX_COMMENTS_SYMBOL);
   if (!textDescriptionLength) {
     textDescription.setCustomValidity(`Удалите лишние ${textDescription.value.length - MAX_COMMENTS_SYMBOL} симв.`);
@@ -53,4 +53,4 @@ const validationFormDescription = (evt) => {
   }
   textDescription.reportValidity();
 };
-textDescription.addEventListener('input', validationFormDescription);
+textDescription.addEventListener('input', onFormDescriptionCheck);

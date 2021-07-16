@@ -1,4 +1,3 @@
-//Фильтрация изображений
 const imagePreview = document.querySelector('.img-upload__preview');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');

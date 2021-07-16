@@ -14,8 +14,16 @@ const commentInput = bigPicture.querySelector('.social__footer-text');
 const noEffectRadio = document.querySelector('#effect-none');
 const imagePreview = document.querySelector('.img-upload__preview');
 const sliderWrapper = document.querySelector('.img-upload__effect-level');
+const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+const closeUpload = document.querySelector('#upload-cancel');
 
-const onCloseModalClick = () => {
+const removePicturesHendlers = () => {
+  closeUpload.removeEventListener('click', onCloseModalClick);
+  bigPictureCancel.removeEventListener('click', onCloseModalClick);
+  document.removeEventListener('keydown', onPopupEscKeydown);
+};
+
+function onCloseModalClick() {
   photoUpload.classList.add('hidden');
   bigPicture.classList.add('hidden');
   socialCommentCount.classList.remove('hidden');
@@ -31,9 +39,11 @@ const onCloseModalClick = () => {
   sliderWrapper.classList.add('visually-hidden');
   imagePreview.style.filter = 'none';
   noEffectRadio.checked = 'true';
-};
 
-const onPopupEscKeydown = (evt) => {
+  removePicturesHendlers();
+}
+
+function onPopupEscKeydown(evt) {
   if (isEscEvent(evt)) {
     if (textHashtag === document.activeElement || textDescription === document.activeElement) {
       evt.stopPropagation();
@@ -41,25 +51,91 @@ const onPopupEscKeydown = (evt) => {
       onCloseModalClick();
     }
   }
+}
+
+const removeListenerSuccessMessage = () => {
+  const successModal = document.querySelector('.success');
+  const successModalButton = document.querySelector('.success__button');
+
+  successModalButton.removeEventListener('click', onButtonModalSuccessClick);
+  document.removeEventListener('keydown', onKeyToSuccessModalClick);
+  successModal.removeEventListener('click', onModalSuccessOutsideClick);
 };
 
-const closeMessageModal = (messageTemplate, messageCloseButton, messageInner) => {
-  messageCloseButton.addEventListener('click', () => {
-    messageTemplate.remove();
-  });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      messageTemplate.remove();
-    }
-  });
-  messageTemplate.addEventListener('click', (evt) => {
-    const isClickInside = messageInner.contains(evt.target);
+function onButtonModalSuccessClick() {
+  const successModal = document.querySelector('.success');
+  removeListenerSuccessMessage();
+  successModal.remove();
+}
 
-    if (!isClickInside) {
-      messageTemplate.remove();
-    }
-  });
+function onKeyToSuccessModalClick(evt) {
+  if (isEscEvent(evt)) {
+    const successModal = document.querySelector('.success');
+    removeListenerSuccessMessage();
+    successModal.remove();
+  }
+}
+
+function onModalSuccessOutsideClick(evt) {
+  const successInnerTemplate = evt.currentTarget.querySelector('.success__inner');
+  const isClickInside = successInnerTemplate.contains(evt.target);
+
+  if (!isClickInside) {
+    removeListenerSuccessMessage();
+    evt.currentTarget.remove();
+  }
+}
+
+const closeSuccessMessageModal = () => {
+  const successModal = document.querySelector('.success');
+  const successModalButton = document.querySelector('.success__button');
+
+  successModalButton.addEventListener('click', onButtonModalSuccessClick);
+  document.addEventListener('keydown', onKeyToSuccessModalClick);
+  successModal.addEventListener('click', onModalSuccessOutsideClick);
 };
 
-export {onCloseModalClick, onPopupEscKeydown, closeMessageModal};
+const removeListenerErrorMessage = () => {
+  const errorModal = document.querySelector('.error');
+  const errorModalButton = document.querySelector('.error__button');
+
+  errorModalButton.removeEventListener('click', onButtonModalErrorClick);
+  document.removeEventListener('keydown', onKeyToErrorModalClick);
+  errorModal.removeEventListener('click', onModalErrorOutsideClick);
+};
+
+function onButtonModalErrorClick() {
+  const errorModal = document.querySelector('.error');
+  removeListenerErrorMessage();
+  errorModal.remove();
+}
+
+function onKeyToErrorModalClick(evt) {
+  if (isEscEvent(evt)) {
+    const errorModal = document.querySelector('.error');
+    removeListenerErrorMessage();
+    errorModal.remove();
+  }
+}
+
+function onModalErrorOutsideClick(evt) {
+  const errorInnerTemplate = evt.currentTarget.querySelector('.error__inner');
+  const isClickInside = errorInnerTemplate.contains(evt.target);
+
+  if (!isClickInside) {
+    removeListenerErrorMessage();
+    evt.currentTarget.remove();
+  }
+}
+
+const closeErrorMessageModal = () => {
+  const errorModal = document.querySelector('.error');
+  const errorModalButton = document.querySelector('.error__button');
+
+  errorModalButton.addEventListener('click', onButtonModalErrorClick);
+  document.addEventListener('keydown', onKeyToErrorModalClick);
+  errorModal.addEventListener('click', onModalErrorOutsideClick);
+};
+
+export {onCloseModalClick, onPopupEscKeydown, closeSuccessMessageModal, closeErrorMessageModal};
 
