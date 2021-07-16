@@ -15,7 +15,6 @@ const commentsList = bigPicture.querySelector('.social__comments');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentFragment = document.createDocumentFragment();
 
-// Обработка события нажатия на миниатюру и заполнение данными;
 const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
   const onPreviewClick = (evt) => {
     evt.preventDefault();
@@ -26,8 +25,6 @@ const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
     bigCommentsCount.textContent = comments.length;
     bigPhotoDescription.textContent = description;
     commentsList.innerHTML = '';
-
-    // Генерация комментариев к фотографии;
 
     const generateCommentsList = (userComments) => {
       userComments.forEach(({avatar, name, message}) => {
@@ -53,13 +50,9 @@ const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
     const commentsCounter = 0;
     let currentCommentsNumber = COMMENTS_LOAD_STEP;
 
-    // Отрисовываем первые 5 комментариев
-
     const initialComments = comments.slice(commentsCounter, currentCommentsNumber);
     socialCommentCount.firstChild.textContent = `${initialComments.length} из  `;
     generateCommentsList(initialComments);
-
-    // Отрисовываем дополнительные комментарии по клику на кнопку
 
     commentsLoader.addEventListener('click', () => {
       const newCommentsNumber = currentCommentsNumber + COMMENTS_LOAD_STEP;
@@ -86,8 +79,7 @@ const addPhotoClickHandler = (preview, {url, likes, comments, description}) => {
     bigPictureCancel.addEventListener('click', onCloseModalClick);
     document.addEventListener('keydown', onPopupEscKeydown);
   };
-  bigPictureCancel.removeEventListener('click', onCloseModalClick);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+
   preview.addEventListener('click', onPreviewClick);
 };
 

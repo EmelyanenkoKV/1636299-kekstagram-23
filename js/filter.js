@@ -51,4 +51,5 @@ const renderPhotoFilter = (userPhotos) => {
     setFilterDebounced(discussedPictures);
   });
 };
+
 export {renderPhotoFilter};

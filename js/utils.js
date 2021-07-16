@@ -18,8 +18,6 @@ const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
 checkStringLength('false', MAX_LENGTH);
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
-
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const showAlert = (message) => {
@@ -50,11 +48,10 @@ const shuffle = (array) => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
-
 // Функция взята из интернета и доработана
 // Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 
-function debounce (callback, timeoutDelay = RERENDER_DELAY) {
+const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;
@@ -70,6 +67,5 @@ function debounce (callback, timeoutDelay = RERENDER_DELAY) {
     // Таким образом цикл "поставить таймаут - удалить таймаут" будет выполняться,
     // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
-}
-
-export {getRandomNumber,checkStringLength,getRandomArrayElement,isEscEvent, showAlert, shuffle, debounce};
+};
+export {getRandomNumber,checkStringLength, isEscEvent, showAlert, shuffle, debounce};
